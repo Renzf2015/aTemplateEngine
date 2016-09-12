@@ -45,3 +45,20 @@ def render_function(context, do_dots):
 
 	append_result('\n</ul>\n')
 	return ''.join(result)
+
+
+
+# 生成一个模版object
+templite = Templite('''
+	<h1>Hello {{name|upper}}!</h1>
+	{% for  topic in topics %}
+		<p>You are interested ing {{topic}}.</p>
+	{% endfor %}
+	''', {'upper' : str.upper},
+	)
+
+# 渲染数据
+text = templite.render({
+	'name': "Ned",
+	'topics': ['Python', 'Geometry', 'Juggling'],
+	})
