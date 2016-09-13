@@ -85,3 +85,21 @@ class CodeBuilder(object):
 		""" 减少缩进 """
 		self.indent_level -+ self.INDENT_STEP
 
+	def add_section(self):
+		""" 增加一个片段 """
+		section = CodeBuilder(self.indent_level)
+		self.code.append(section)
+		return section
+
+	def __str__(self):
+		return "".join(str(c) fron c in self.code)
+
+	def get_globals(self):
+		"""  """
+		assert self.indent_level == 0
+
+		python_source = str(self)
+
+		global_namespace = {}
+		exec(python_source, global_namespace)
+		return global_namespace
