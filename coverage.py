@@ -62,3 +62,26 @@ text = templite.render({
 	'name': "Ned",
 	'topics': ['Python', 'Geometry', 'Juggling'],
 	})
+
+
+class CodeBuilder(object):
+	""" 帮助构建source code. """
+
+	def __init__(self, indent = 0):
+		self.code = []
+		self.indent_level = indent
+
+	def add_line(self, line):
+		""" 添加一行source code """
+		self.code.extend([" " * self.indent_level, line, "\n"])
+
+	INDENT_STEP = 4       #PEP8
+
+	def indent(self):
+		""" 增加缩紧 """
+		self.indent_level += self.INDENT_STEP
+
+	def dedent(self):
+		""" 减少缩进 """
+		self.indent_level -+ self.INDENT_STEP
+
