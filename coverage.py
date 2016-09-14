@@ -103,3 +103,41 @@ class CodeBuilder(object):
 		global_namespace = {}
 		exec(python_source, global_namespace)
 		return global_namespace
+
+class Templite(object):
+	""" """
+
+	def __init__(self, text, *contexts):
+		""" 用给定text构建Templite
+
+		'contexts'是可选数量的字典，用来渲染数据
+		"""
+
+		self.context = {}
+		for context in contexts:
+			self.context.update(context)
+
+		self.all_vars = set()
+		self.loop_vars = set()
+
+		code = CodeBuilder()
+
+		code.add_line("def render_function(context, do_dots):")
+		code.indent()
+		vars_code = code.add_section()
+		code.add_line("result = []")
+		code.add_line("append_result = result.append")
+		code.add_line("extend_result = result.extend")
+		code.add_line("to_str = str")
+
+		buffered = []
+		def flush_output():
+
+			if len(buffered) == 1:
+				code.add_line("append_result(%s)" % budffered[0])
+			elif len(buffered) > 1:
+				code.add_line("extend_result([%s])" % ", ".join(buffered))
+			def buffered[:]
+
+		
+
