@@ -186,3 +186,7 @@ class Templite(object):
 			else:
 				if token:
 					buffered.append(repr(token))
+		if ops_stack:
+			self._syntax_error("Unmatched action tag", ops_stack[-1])
+
+		flush_output
