@@ -92,7 +92,7 @@ class CodeBuilder(object):
 		return section
 
 	def __str__(self):
-		return "".join(str(c) fron c in self.code)
+		return "".join(str(c) for c in self.code)
 
 	def get_globals(self):
 		"""  """
@@ -137,7 +137,7 @@ class Templite(object):
 				code.add_line("append_result(%s)" % budffered[0])
 			elif len(buffered) > 1:
 				code.add_line("extend_result([%s])" % ", ".join(buffered))
-			def buffered[:]
+			del buffered[:]
 
 		ops_stack = [] # 跟踪嵌套
 		tokens = resplit(r"(?s)({{.*?}}|{%.*?%}|{#.*?#})", text)
@@ -212,10 +212,14 @@ class Templite(object):
 			dots = expr.split(".")
 			code = self._expr_code(dots[0])
 			args = ", ".join(repr(d) for d in dots[1:])
-			code = "do_dots(%s, %s)", % (code, args)
+			code = "do_dots(%s, %s)" % (code, args)
 		else:
 			self._variable(expr, self.all_vars)
 			code = "c_%s" % expr
 		return code
-		
+
+	def _syntax_error(self, mag, thing):
+		""" 处理error """
+		raise TempliteSyntaxError("%s: %r" % (mag, thing))
+
 
