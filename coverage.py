@@ -223,3 +223,9 @@ class Templite(object):
 		raise TempliteSyntaxError("%s: %r" % (mag, thing))
 
 
+	def _variable(self, name, vars_set):
+		""" 跟踪变量 """
+		if not re.match(r"[_a-zA-Z][_a-zA-Z0-9]*$", name):
+			self._syntax_error("Not a valid name", name)
+		vars_set.add(name)
+	
