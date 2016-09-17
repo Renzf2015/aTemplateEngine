@@ -228,4 +228,12 @@ class Templite(object):
 		if not re.match(r"[_a-zA-Z][_a-zA-Z0-9]*$", name):
 			self._syntax_error("Not a valid name", name)
 		vars_set.add(name)
+
+	def render(self, context = None):
+		"""  渲染模版， 通过给定xontext """
+		render_context = dict(self.context)
+		if context:
+			render_context.updata(context)
+
+		return self._render_function(render_context, self._do_dots)
 	
