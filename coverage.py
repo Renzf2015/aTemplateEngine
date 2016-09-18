@@ -236,4 +236,15 @@ class Templite(object):
 			render_context.updata(context)
 
 		return self._render_function(render_context, self._do_dots)
-	
+
+	def _do_dots(self, value, *dots):
+		for dot in dots:
+			try:
+				value = getattr(value, dot)
+			except AttributeError:
+				value = value[dot]
+			if callable(value):
+				value = value()
+		return value
+		
+
